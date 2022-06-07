@@ -23,7 +23,7 @@ const Inventory = () => {
     const [inventory, setInventory] = useState();
     const [search, setSearch] = useState("");
     const [filteredInventory, setfilteredInventory] = useState();
-    const [productTotal, setProductTotal] = useState(0);
+    //const [productTotal, setProductTotal] = useState(0);
     const [selectedData, setSelectedData] = useState('');
     const [cartTotal, setCartTotal] = useState('');
 
@@ -43,13 +43,15 @@ const Inventory = () => {
     const getInventory = async () => {  
       try {
 
+        //const inventoryData = '';
+
         //const inventoryData = await axios.get("http://localhost:5000/");
 
         const inventoryData = await axios.get("https://akstore-server.herokuapp.com/");
 
         if( inventoryData ) {
-          
-          alert( inventoryData.data );
+          //console.log( "data received");
+          //alert( inventoryData.data );
         
           setInventory( inventoryData.data );
           
@@ -86,7 +88,7 @@ const Inventory = () => {
  
       let body = JSON.parse( selectedData );
 
-      //let name = customerName ;
+      //let name = customerName ; 
 
       //let phone = JSON.parse( customerPhone ); 
 
@@ -96,7 +98,7 @@ const Inventory = () => {
 
       //alert ( phone );
 
-      axios.post('http://localhost:500/sendmail', ({ data : body, customername: customerName, customerphone : customerPhone  }) )
+      axios.post('http://localhost:5000/sendmail', ({ data : body, customername: customerName, customerphone : customerPhone  }) )
       .then((res) => {
         alert("got response")
       })
@@ -105,10 +107,11 @@ const Inventory = () => {
       });
     }
 
-    //useEffect(() => {
-      //getInventory();
-    //}, []);
-
+    useEffect(() => {
+      getInventory();
+    }, []);
+    
+    /*
     useEffect(() => {
         const result = inventory.filter( (inventoryItem) => {
             return inventoryItem.product.toLowerCase().match(search.toLowerCase());
@@ -116,6 +119,7 @@ const Inventory = () => {
 
         setfilteredInventory(result);
     });
+    */
 
     const handleChange = (state) => {
       setSelectedData( JSON.stringify(state.selectedRows) );
@@ -166,13 +170,14 @@ const Inventory = () => {
       }
     ];
 
-    //useEffect(() => {
+    /*
+    useEffect(() => {
 
-      //setInventory(inventoryData.data);
-      //setfilteredInventory(inventoryData.data);
-      //console.log("Behavior before the component is added to the DOM");
-    //}, []); // Mark [] here.
-
+      setInventory(inventoryData.data);
+      setfilteredInventory(inventoryData.data);
+      console.log("Behavior before the component is added to the DOM");
+    }, []); // Mark [] here.
+    */
 
     // Component Rendering
     return (
